@@ -9,8 +9,17 @@
 .myContainer{
     @apply mx-6 md:mx-10
 }
+.my-title{
+  @apply font-bold text-2xl lg:text-4xl xl:text-5xl
+}
+.my-title-2{
+  @apply font-bold text-xl lg:text-2xl xl:text-3xl
+}
+.my-subtitle{
+  @apply font-semibold text-lg lg:text-xl xl:text-2xl
+}
 .my-btn-one{
-    @apply px-4 py-3 rounded font-semibold bg-black text-white
+    @apply px-4 py-3 rounded font-semibold bg-yellow-500 text-black hover:scale-105 transition
 }
 .my-clr-one{
   color: #011324;
