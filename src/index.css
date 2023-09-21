@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+/* Common style */
+.myContainer{
+    @apply mx-6 md:mx-10
+}
+
+.my-btn-one{
+    @apply px-4 py-3 rounded font-semibold bg-black text-white
+}
+
+
+
+body{
+    --sb-track-color: #f9f9f9;
+    --sb-thumb-color: #121212;
+    --sb-size: 10px;
+  
+    scrollbar-color: var(--sb-thumb-color) 
+                     var(--sb-track-color) !important; 
+}
