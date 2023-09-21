@@ -3,10 +3,10 @@ import logo from '/public/assets/img/logo.png'
 
 const Navbar = () => {
     const menu = <>
-        <li className="border-r border-slate-300 px-2">Home</li>
-                    <li className="border-r border-slate-300 px-2">About</li>
-                    <li className="border-r border-slate-300 px-2">Contact</li>
-                    <li className="flex items-center gap-2 px-2">Search Plan <span className="h-8 w-8 bg-red-500 text-white rounded-full flex items-center justify-center"><FaSearch></FaSearch></span></li>
+        <li className="border-r border-slate-300 px-2 cursor-pointer">Home</li>
+                    <li className="border-r border-slate-300 px-2 cursor-pointer">About</li>
+                    <li className="border-r border-slate-300 px-2 cursor-pointer">Contact</li>
+                    <li className="flex items-center gap-2 px-2 cursor-pointer">Search Plan <span className="h-8 w-8 bg-yellow-500 text-white rounded-full flex items-center justify-center"><FaSearch></FaSearch></span></li>
     </>
     return (
         <div className="navbar bg-slate-50 border-b border-slate-200">
