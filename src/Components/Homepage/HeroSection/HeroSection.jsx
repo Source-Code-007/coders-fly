@@ -4,20 +4,38 @@ import 'react-toastify/dist/ReactToastify.css';
 import UsePlan from "../../../Hooks/UsePlan";
 
 
-
 const HeroSection = () => {
     const [myPlans, setMyPlans] = UsePlan()
 
-    // toast('Plan purchase successfully!', {
-    //     position: "bottom-right",
-    //     autoClose: 2000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    // });
+
+    // Handle buy now function
+    const handlePurchaseFunc = (planName)=>{
+
+        // rest plan
+        const restPlan = myPlans.filter(mp => mp.plan !== planName)
+        // changing current plan status
+        const currPlan = myPlans.find(cp=> cp.plan === planName)
+        currPlan.status = 'purchased'
+
+        // add new plan in custom hook conditionally 
+        const newEnablePlan = planName==="Free"? {plan: 'Starter', status:'readyForPurchase'} : planName==="Starter"? {plan: 'Silver', status:'readyForPurchase'} : planName==="Silver"? {plan: 'Gold', status:'readyForPurchase'} : planName==="Gold"? {plan: 'Diamond', status:'readyForPurchase'} : '' 
+        console.log(newEnablePlan);
+        setMyPlans([...restPlan, currPlan, newEnablePlan])
+
+        // toast a message
+        toast(`${planName} plan purchase successfully!`, {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
+
+    console.log(myPlans);
 
     const plans = [
         {
@@ -91,14 +109,14 @@ const HeroSection = () => {
                             const { planName, intro, price, btnText, features } = plan
                             const isReadyForPurchased = myPlans.find(mp => mp.plan === planName)?.status === 'readyForPurchase'
                             const isPurchased = myPlans.find(mp => mp.plan === planName)?.status === 'purchased'
-                            
+                            console.log(planName, isPurchased, isReadyForPurchased);
                             return <div key={ind} className="text-white border-2 border-yellow-500 rounded space-y-4 p-5">
                                 <FaIcons className="text-yellow-500 text-3xl"></FaIcons>
                                 <h2 className="my-title-2">{planName}</h2>
                                 <p>{intro}</p>
                                 <p className="my-title">${price} <span className="text-slate-400 text-sm font-normal">50$ Return</span></p>
-                                <button className={`my-btn-one ${isReadyForPurchased || isPurchased ? '!bg-opacity-100' : '!bg-opacity-50'}`} disabled={isReadyForPurchased ? false : isPurchased ? 'Purchased' : btnText}>{isReadyForPurchased ? 'Buy Now' : isPurchased ? 'Purchased' : <span className="flex items-center gap-2"> <FaLock/> {btnText}</span>}</button>
-                                <ul className="pt-6 !mt-8 border-t border-dashed border-slate-700 text-slate-400">
+                                <button className={`my-btn-one ${isReadyForPurchased ? '!bg-opacity-100' : '!bg-opacity-50'}`} disabled={isReadyForPurchased ? false : true} onClick={()=> handlePurchaseFunc(planName)}>{isReadyForPurchased ? 'Buy Now' : isPurchased ? 'Purchased' : <span className="flex items-center gap-2"> <FaLock/> {btnText}</span>}</button>
+                                <ul className={`pt-6 !mt-8 border-t border-dashed border-slate-700 text-slate-400 ${(!isPurchased && !isReadyForPurchased) && 'blur'}`}>
                                     {features.map((feature, ind) => <li key={ind} className="flex items-center gap-2"> <FaCheck></FaCheck> {feature}</li>)}
                                 </ul>
                             </div>
@@ -118,7 +136,7 @@ const HeroSection = () => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="colored"
+                theme="light"
             />
         </div>
     );
