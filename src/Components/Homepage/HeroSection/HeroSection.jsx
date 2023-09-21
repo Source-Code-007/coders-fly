@@ -1,5 +1,5 @@
 import { FaCheck, FaFreebsd, FaLock, FaStar } from "react-icons/fa";
-import {  LuAlignHorizontalDistributeStart } from "react-icons/lu";
+import { LuAlignHorizontalDistributeStart } from "react-icons/lu";
 import { SiGoldenline } from "react-icons/si";
 import { BiSolidDiamond } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,15 +12,15 @@ const HeroSection = () => {
 
 
     // Handle buy now function
-    const handlePurchaseFunc = (planName)=>{
+    const handlePurchaseFunc = (planName) => {
         // rest plan
         const restPlan = myPlans.filter(mp => mp.plan !== planName)
         // changing current plan status
-        const currPlan = myPlans.find(cp=> cp.plan === planName)
+        const currPlan = myPlans.find(cp => cp.plan === planName)
         currPlan.status = 'purchased'
 
         // add new plan in custom hook conditionally 
-        const newEnablePlan = planName==="Free"? {plan: 'Starter', status:'readyForPurchase'} : planName==="Starter"? {plan: 'Silver', status:'readyForPurchase'} : planName==="Silver"? {plan: 'Gold', status:'readyForPurchase'} : planName==="Gold"? {plan: 'Diamond', status:'readyForPurchase'} : '' 
+        const newEnablePlan = planName === "Free" ? { plan: 'Starter', status: 'readyForPurchase' } : planName === "Starter" ? { plan: 'Silver', status: 'readyForPurchase' } : planName === "Silver" ? { plan: 'Gold', status: 'readyForPurchase' } : planName === "Gold" ? { plan: 'Diamond', status: 'readyForPurchase' } : ''
         console.log(newEnablePlan);
         setMyPlans([...restPlan, currPlan, newEnablePlan])
 
@@ -52,7 +52,7 @@ const HeroSection = () => {
             ],
         },
         {
-            icon: <LuAlignHorizontalDistributeStart></LuAlignHorizontalDistributeStart> ,
+            icon: <LuAlignHorizontalDistributeStart></LuAlignHorizontalDistributeStart>,
             planName: "Starter",
             intro: "Great for small businesses",
             price: 50,
@@ -116,10 +116,12 @@ const HeroSection = () => {
                             const isPurchased = myPlans.find(mp => mp.plan === planName)?.status === 'purchased'
                             return <div key={ind} className="rounded-lg bg-white bg-opacity-5 text-white space-y-4 md:space-y-6 p-5">
                                 <span className="text-3xl text-yellow-500">{icon}</span>
-                                <h2 className="my-title-2">{planName}</h2>
-                                <p>{intro}</p>
+                                <div className="space-y-4">
+                                    <h2 className="my-title-2">{planName}</h2>
+                                    <p className="text-slate-300">{intro}</p>
+                                </div>
                                 <p className="my-title">${price} <span className="text-slate-400 text-sm font-normal">50$ Return</span></p>
-                                <button className={`my-btn-one ${isReadyForPurchased ? '!bg-opacity-100' : '!bg-opacity-50'}`} disabled={isReadyForPurchased ? false : true} onClick={()=> handlePurchaseFunc(planName)}>{isReadyForPurchased ? 'Buy Now' : isPurchased ? 'Purchased' : <span className="flex items-center gap-2"> <FaLock/> {btnText}</span>}</button>
+                                <button className={`my-btn-one ${isReadyForPurchased ? '!bg-opacity-100' : '!bg-opacity-50'}`} disabled={isReadyForPurchased ? false : true} onClick={() => handlePurchaseFunc(planName)}>{isReadyForPurchased ? 'Buy Now' : isPurchased ? 'Purchased' : <span className="flex items-center gap-2"> <FaLock /> {btnText}</span>}</button>
                                 <ul className={`pt-6 !mt-8 border-t-2 border-dashed border-slate-700 text-slate-400 space-y-3 ${(!isPurchased && !isReadyForPurchased) && 'blur'}`}>
                                     {features.map((feature, ind) => <li key={ind} className="flex items-center gap-2"> <FaCheck></FaCheck> {feature}</li>)}
                                 </ul>
